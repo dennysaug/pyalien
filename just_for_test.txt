@@ -1,0 +1,34 @@
+import multiprocessing
+import os
+import sys
+from datetime import datetime
+from time import sleep
+import httplib
+import requests
+from selenium import webdriver
+from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import ElementNotVisibleException
+from selenium.common.exceptions import NoAlertPresentException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import WebDriverException
+pastaAtual = os.getcwd()
+options = webdriver.ChromeOptions()
+options.add_argument("--user-data-dir=/home/dennys/.config/google-chrome")
+options.add_argument("disable-infobars")
+options.add_argument("--window-size=1420,1080")
+print("options ok")
+chromedriver = pastaAtual + "/chromedriver"
+os.environ["webdriver.chrome.driver"] = chromedriver
+browser = webdriver.Chrome(options=options, executable_path=chromedriver)
+browser.delete_all_cookies()
+browser.maximize_window()
+browser.get('https://play.alienworlds.io/')
+dir(browser)
+print("end ok")
+sleep(4)
+browser.find_element_by_xpath("//*[contains(text(), 'Mine')]").click()
+sleep(4)
+browser.find_element_by_xpath("//*[contains(text(), 'Claim Mine')]").click()
+sleep(4)
+browser.switch_to.window(browser.window_handles[1])
+sleep(63*5)
